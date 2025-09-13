@@ -6,12 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clubes</title>
     <!-- <link href="styles/general.css" rel="stylesheet"> -->
+     <link href="styles/general.css" rel="stylesheet">
     <link href="styles/table.css" rel="stylesheet">
+    <link href="styles/menu.css" rel="stylesheet">
+    <link href="styles/libs/bootstrap.min.css" rel="stylesheet">
     <script src="scripts/clubsManager.js"></script>
+    <script src="scripts/loginManager.js"></script>
+    <script src="scripts/libs/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
-    <h1>Listado de clubes</h1>
+    <nav class="sidebar">
+        <h2>Liga Libre</h2>
+        <a href="index.html">Inicio</a>
+        <a href="clubs.html">Clubes</a>
+        <a href="#" onclick="logout()">Cerrar sesión</a>
+    </nav>
+    
+    <main class="main-content">
+     <h1>Listado de clubes</h1>
+     <button onclick="showCreateForm()" class="btn btn-primary mb-3">Crear Club</button>
+     <div class="table-container">
     <table id="clubsTable">
         <thead>
             <th>ID</th>
@@ -22,9 +37,14 @@
             <th>Teléfono</th>
             <th>Dirección</th>
             <th>Estadio</th>
+            <th>Acciones</th>
         </thead>
         <tbody></tbody>
     </table>
+     </div>
+   
+    </main>
+   
 </body>
 
 </html>
