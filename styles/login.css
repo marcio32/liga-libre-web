@@ -13,6 +13,10 @@
     color: #333;
 }
 
+.forms-login {
+    width: 94%!important;
+}
+
 .form-group {
     margin-bottom: 1rem;
 }
@@ -48,4 +52,8 @@
 
 .footer {
     color: orange;
+}
+
+.a {
+
 }

@@ -8,6 +8,8 @@
     <link href="styles/general.css" rel="stylesheet">
     <link href="styles/login.css" rel="stylesheet">
     <script src="scripts/loginManager.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body>
@@ -15,27 +17,18 @@
         <h2>Iniciar Sesión</h2>
         <div class="form-group">
             <label>Usuario</label>
-            <input type="text" id="username" required />
+            <input class="forms-login" type="text" id="username" required />
         </div>
         <div class="form-group">
             <label>Contraseña</label>
-            <input type="password" id="password" required />
+            <input class="forms-login" type="password" id="password" required />
         </div>
         <button type="button" class="btn-login" onclick="login()">Ingresar</button>
 
         <div class="footer">
-            ¿No tenés cuenta? <a href="/register">Registrate</a>
+            ¿No tenés cuenta? <a href="#" onclick="showRegisterForm()">Registrate</a>
         </div>
     </div>
 </body>
 
 </html>
-
-
-
-<persona nombre="Juan" edad="30" activo="true">
-    <hobbies>
-        <hobby nombre="Futbol"/>
-        <hobby nombre="Cine"/>
-    </hobbies>
-</persona>

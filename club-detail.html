@@ -4,14 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clubes</title>
-    <link href="styles/general.css" rel="stylesheet">
-    <script src="scripts/clubDetailManager.js"></script>
+    <title>Detalle del club</title>
+    <!-- <link href="styles/general.css" rel="stylesheet"> -->
+     <link href="styles/general.css" rel="stylesheet">
+    <link href="styles/menu.css" rel="stylesheet">
+    <link href="styles/libs/bootstrap.min.css" rel="stylesheet">
+    <script src="scripts/loginManager.js"></script>
+     <script src="scripts/clubDetailManager.js"></script>
+    <script src="scripts/libs/bootstrap.bundle.min.js"></script>
+    <script src="scripts/libs/sweetalert2.js"></script>
 </head>
 
 <body>
-    <h1>Detalle de club</h1>
-    <div class="container"></div>
+    <nav class="sidebar">
+        <h2>Liga Libre</h2>
+        <a href="index.html">Inicio</a>
+        <a href="clubs.html">Clubes</a>
+        <a href="#" onclick="logout()">Cerrar sesión</a>
+    </nav>
+    
+    <main class="main-content">
+        <h1>Detalle del club</h1>
+        <div id="containerClubDetail"></div>
+    </main>
+   
 </body>
 
 </html>

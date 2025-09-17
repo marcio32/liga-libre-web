@@ -28,7 +28,7 @@
               "RelativeDocumentMoniker": "clubs.html",
               "ToolTip": "C:\\Repos\\libra-libre-web\\clubs.html",
               "RelativeToolTip": "clubs.html",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA/AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
               "WhenOpened": "2025-09-12T23:10:58.112Z",
               "EditorCaption": ""
@@ -43,7 +43,8 @@
               "RelativeToolTip": "scripts\\clubDetailManager.js",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-09-12T23:10:51.584Z"
+              "WhenOpened": "2025-09-12T23:10:51.584Z",
+              "EditorCaption": ""
             }
           ]
         }
