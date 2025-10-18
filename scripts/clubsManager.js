@@ -11,7 +11,6 @@ async function loadClubs() {
     const response = await fetch(`${API_BASE_URL}/Club/GetAll`, {
         headers: getAuthHeaders()
     });
-
     const responseContent = await response.json();
 
     renderClubs(responseContent);
@@ -70,10 +69,12 @@ function showCreateForm(){
 }
 
 function editClub(id){
-    fetch(`${API_BASE_URL}/Club/GetById/${id}`, {
+    debugger
+    fetch(`${API_BASE_URL}/Club/GetById?id=${id}`, {
         headers: getAuthHeaders()
     }).then(response => response.json()).then(
         club => {
+            debugger
             const main = document.querySelector('.main-content');
 
             main.innerHTML = `
@@ -108,7 +109,7 @@ function createClub(){
         stadiumName: document.getElementById('stadiumName').value
     };
 
-    fetch(`${API_BASE_URL}/Club/Create`, {
+    fetch(`${API_BASE_URL}/Club/CreateClub`, {
         method: 'POST',
         headers: getAuthHeaders(),
         body: JSON.stringify(clubData)
@@ -140,7 +141,7 @@ function updateClub(id){
         stadiumName: document.getElementById('stadiumName').value
     };
 
-    fetch(`${API_BASE_URL}/Club/Update/${id}`, {
+    fetch(`${API_BASE_URL}/Club/UpdateClub?id=${id}`, {
         method: 'Put',
         headers: getAuthHeaders(),
         body: JSON.stringify(clubData)
@@ -173,7 +174,7 @@ function deleteClub(id){
         cancelButtonText: "Cancelar"
         }).then((result) => {
             if (result.isConfirmed) { 
-            fetch(`${API_BASE_URL}/Club/Delete/${id}`, {
+            fetch(`${API_BASE_URL}/Club/Delete?id=${id}`, {
                 method: 'DELETE',
                 headers: getAuthHeaders()
             }).then(response => {

@@ -15,7 +15,7 @@ async function loadClubDetail() {
         return;
     }
 
-    fetch(`${API_BASE_URL}/Club/GetById/${id}`, {
+    fetch(`${API_BASE_URL}/Club/GetById?id=${id}`, {
         headers: getAuthHeaders()
     }).then(response => {
         if(!response.ok){
