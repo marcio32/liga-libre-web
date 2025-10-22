@@ -17,29 +17,28 @@ async function loadClubs() {
 }
 
 function renderClubs(clubs) {
-    const tbody = document.querySelector('#clubsTable tbody')
     const isAdmin = checkIsAdmin();
+    
+    const data = clubs.map(club => [
+        club.id,
+        club.name,
+        club.city,
+        club.email,
+        club.numberOfPartners,
+        club.phone,
+        club.address,
+        club.stadiumName,
+        isAdmin ? `<button class="btn btn-warning btn-sm" onclick="editClub(${club.id})">Editar</button>
+                  <button class="btn btn-danger btn-sm" onclick="deleteClub(${club.id})">Eliminar</button>` : 'No autorizado'
 
+        ]);
 
-    clubs.forEach(club => {
-        const adminActions = isAdmin ? `<a class="btn btn-primary" href="#" onclick="editClub(${club.id})">Editar</a> <a class="btn btn-danger" href="#" onclick="deleteClub(${club.id})">Eliminar</a>` : '';
-
-        const row = document.createElement('tr');
-        row.innerHTML = `<td>${club.id}</td>
-                         <td>${club.name}</td>
-                         <td>${club.city}</td>
-                         <td>${club.email}</td>
-                         <td>${club.numberOfPartners}</td>
-                         <td>${club.phone}</td>
-                         <td>${club.address}</td>
-                         <td>${club.stadiumName}</td>
-                         <td>
-                            <a class="btn btn-secondary" href="club-detail.html?id=${club.id}">Ver</a>
-                            ${adminActions} 
-                         </td>
-                        `;
-        tbody.appendChild(row);
-    });
+    $('#clubsTable').DataTable({
+        data: data,
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json'
+        }
+    })
 }
 
 function checkIsAdmin(){
@@ -69,7 +68,6 @@ function showCreateForm(){
 }
 
 function editClub(id){
-    debugger
     fetch(`${API_BASE_URL}/Club/GetById?id=${id}`, {
         headers: getAuthHeaders()
     }).then(response => response.json()).then(
@@ -81,13 +79,13 @@ function editClub(id){
             <h2>Crear Club</h2>
             <form id="clubForm">
             <div style="width:15%">
-                <input class="form-control" type="text" id="name" name="name" placeholder="Nombre" value=${club.name} required><br>
-                <input class="form-control" type="text" id="city" name="city" placeholder="Ciudad" value=${club.city} required><br>
-                <input class="form-control" type="email" id="email" name="email" placeholder="Email" value=${club.email} required><br>
-                <input class="form-control" type="number" id="numberOfPartners" name="numberOfPartners" placeholder="Número de socios" value=${club.numberOfPartners} required><br>
-                <input class="form-control" type="text" id="phone" name="phone" placeholder="Teléfono" value=${club.phone} required><br>
-                <input class="form-control" type="text" id="address" name="address" placeholder="Dirección" value=${club.address} required><br>
-                <input class="form-control" type="text" id="stadiumName" name="stadiumName" placeholder="Nombre del estadio" value=${club.stadiumName} required><br>
+                <input class="form-control" type="text" id="name" name="name" placeholder="Nombre" value="${club.name}" required><br>
+                <input class="form-control" type="text" id="city" name="city" placeholder="Ciudad" value="${club.city}" required><br>
+                <input class="form-control" type="email" id="email" name="email" placeholder="Email" value="${club.email}" required><br>
+                <input class="form-control" type="number" id="numberOfPartners" name="numberOfPartners" placeholder="Número de socios" value="${club.numberOfPartners}" required><br>
+                <input class="form-control" type="text" id="phone" name="phone" placeholder="Teléfono" value="${club.phone}" required><br>
+                <input class="form-control" type="text" id="address" name="address" placeholder="Dirección" value="${club.address}" required><br>
+                <input class="form-control" type="text" id="stadiumName" name="stadiumName" placeholder="Nombre del estadio" value="${club.stadiumName}" required><br>
                 <button class="btn btn-primary mt-3" type="button" onclick="updateClub(${id})">Actualizar</button>
                 <button class="btn btn-danger mt-3" type="button" onclick="location.reload()">Cancelar</button>
             </div>
@@ -132,6 +130,7 @@ function createClub(){
 
 function updateClub(id){
       const clubData = {
+        id: id,
         name: document.getElementById('name').value,
         city: document.getElementById('city').value,
         email: document.getElementById('email').value,
@@ -141,7 +140,7 @@ function updateClub(id){
         stadiumName: document.getElementById('stadiumName').value
     };
 
-    fetch(`${API_BASE_URL}/Club/UpdateClub?id=${id}`, {
+    fetch(`${API_BASE_URL}/Club/UpdateClub`, {
         method: 'Put',
         headers: getAuthHeaders(),
         body: JSON.stringify(clubData)

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partidos</title>
+    <link href="styles/general.css" rel="stylesheet">
+    <link href="styles/table.css" rel="stylesheet">
+    <link href="styles/menu.css" rel="stylesheet">
+    <link href="styles/libs/bootstrap.min.css" rel="stylesheet">
+    <script src="scripts/MatchManager.js"></script>
+    <script src="scripts/loginManager.js"></script>
+    <script src="scripts/libs/bootstrap.bundle.min.js"></script>
+    <script src="scripts/libs/sweetalert2.js"></script>
+    <script src="scripts/menuManager.js"></script>
+    <script type="text/javascript" src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
+    <script src="https://cdn.datatables.net/2.3.4/js/dataTables.js"></script>
+</head>
+
+<body>
+    <main class="main-content">
+        <h1>Listado de Partidos</h1>
+        <button onclick="showCreateForm()" class="btn btn-primary mb-3">Crear Partido</button>
+        <div class="table-container">
+            <table id="matchesTable">
+                <thead>
+                    <th>ID</th>
+                    <th>Club Local</th>
+                    <th>Club Visitante</th>
+                    <th>Resultado</th>
+                    <th>Jornada</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </main>
+</body>
+
+</html>
