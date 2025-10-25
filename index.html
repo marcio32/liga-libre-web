@@ -1,22 +1,105 @@
-<!DOCTYPE html>
-<html lang="es">
-
+<!DOCTYPE html> 
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Estadisticas - Liga Libre</title>
+    <link rel="stylesheet" href="styles/main.css">
     <link href="styles/general.css" rel="stylesheet">
+    <link href="styles/table.css" rel="stylesheet">
     <link href="styles/menu.css" rel="stylesheet">
-    <script src="scripts/indexManager.js" defer></script>
+    <link href="styles/libs/bootstrap.min.css" rel="stylesheet">
     <script src="scripts/loginManager.js"></script>
+    <script src="scripts/libs/bootstrap.bundle.min.js"></script>
+    <script src="scripts/StatisticsManager.js" defer></script>
     <script src="scripts/menuManager.js"></script>
+    <script src="scripts/config.js"></script>
+    <script type="text/javascript" src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
+    <script src="https://cdn.datatables.net/2.3.4/js/dataTables.js"></script>
 </head>
-
 <body>
-    <main class="main-content">
-        <h1>Bievenido al sistema</h1> 
-    </main>
-    
-</body>
 
+    <main class="main-content">
+        <h1>Bienvenidos a la liga</h1>
+
+        <div class="row">
+            <div class="col-12 col-md-4 mb-2">
+                <div class="card">
+                    <div class="card-header p-2">
+                        <small>Generales</small>
+                    </div>
+                    <div class="card-body p-2" id="leagueStats">
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 mb-2">
+                <div class="card">
+                    <div class="card-header p-2">
+                        <small>Partidos</small>
+                    </div>
+                    <div class="card-body p-2" id="matchStats">
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 mb-2">
+                <div class="card">
+                    <div class="card-header p-2">
+                        <small>Jugadores</small>
+                    </div>
+                    <div class="card-body p-2" id="playerStats">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-2">
+            <div class="col-12 col-lg-6 mb-2">
+                <div class="card">
+                    <div class="card-header p-1">
+                        <small>Posiciones</small>
+                    </div>
+
+                    <div class="card-body p-1">
+                        <div class="table-container">
+                            <table id="standingsTable">
+                                
+                                <thead>
+                                        <th>Pos</th>
+                                        <th>PJ</th>
+                                        <th>G</th>
+                                        <th>E</th>
+                                        <th>P</th>
+                                        <th>Pts</th>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 mb-2">
+                <div class="card">
+                    <div class="card-header p-1">
+                        <small>Goleadores</small>
+                    </div>
+
+                    <div class="card-body p-1">
+                        <div class="table-container">
+                            <table id="topScorersTable">
+                                <thead>
+                                        <th>Jugador</th>
+                                        <th>Club</th>
+                                        <th>Goles</th>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
 </html>

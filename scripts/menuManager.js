@@ -7,7 +7,6 @@ function loadMenu(){
         <a href="players.html">Jugadores</a>
         <a href="matches.html">Partidos</a>
         <a href="referees.html">Arbitros</a>
-        <a href="statistics.html">Estadisticas</a>
         <a href="#" onclick="logout()">Cerrar sesión</a>
     </nav>
     `;

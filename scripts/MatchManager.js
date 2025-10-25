@@ -1,14 +1,6 @@
-function getAuthHeaders() {
-    const token = localStorage.getItem('token');
-    return {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-    }
-}
-
 async function loadMatches() {
-    const response = await fetch(`${API_BASE_URL}/Match/GetAllMatches`, {
-        headers: getAuthHeaders()
+    const response = await fetch(`${CONFIG.API_BASE_URL}/Match/GetAllMatches`, {
+        headers: CONFIG.getAuthHeaders()
     });
     const responseContent = await response.json();
     renderMatches(responseContent);
@@ -100,8 +92,8 @@ async function showCreateForm() {
 }
 
 async function editMatch(id) {
-    const response = await fetch(`${API_BASE_URL}/Match/GetMatchById?id=${id}`, {
-        headers: getAuthHeaders()
+    const response = await fetch(`${CONFIG.API_BASE_URL}/Match/GetMatchById?id=${id}`, {
+        headers: CONFIG.getAuthHeaders()
     });
     const match = await response.json();
     const clubs = await loadClubs();
@@ -172,6 +164,18 @@ async function editMatch(id) {
 }
 
 function createMatch() {
+    
+    const form = document.getElementById('matchForm');
+
+    if(!form.checkValidity()){
+        Swal.fire({
+            icon: "warning",
+            title: "Oops...",
+            text: "Por favor, completa todos los campos correctamente"
+        });
+        return;
+    }
+
     const matchData = {
         homeClubId: parseInt(document.getElementById('homeClubId').value),
         awayClubId: parseInt(document.getElementById('awayClubId').value),
@@ -181,9 +185,9 @@ function createMatch() {
         notes: document.getElementById('notes').value
     };
 
-    fetch(`${API_BASE_URL}/Match/CreateMatch`, {
+    fetch(`${CONFIG.API_BASE_URL}/Match/CreateMatch`, {
         method: 'POST',
-        headers: getAuthHeaders(),
+        headers: CONFIG.getAuthHeaders(),
         body: JSON.stringify(matchData)
     }).then(response => {
         if (response.ok) {
@@ -204,6 +208,18 @@ function createMatch() {
 }
 
 function updateMatch(id) {
+
+    const form = document.getElementById('matchForm');
+
+    if(!form.checkValidity()){
+        Swal.fire({
+            icon: "warning",
+            title: "Oops...",
+            text: "Por favor, completa todos los campos correctamente"
+        });
+        return;
+    }
+
     const matchData = {
         id: id,
         homeClubId: parseInt(document.getElementById('homeClubId').value),
@@ -217,9 +233,9 @@ function updateMatch(id) {
         notes: document.getElementById('notes').value
     };
 
-    fetch(`${API_BASE_URL}/Match/UpdateMatch`, {
+    fetch(`${CONFIG.API_BASE_URL}/Match/UpdateMatch`, {
         method: 'PUT',
-        headers: getAuthHeaders(),
+        headers: CONFIG.getAuthHeaders(),
         body: JSON.stringify(matchData)
     }).then(response => {
         if (response.ok) {
@@ -251,9 +267,9 @@ function deleteMatch(id) {
         cancelButtonText: "Cancelar"
     }).then((result) => {
         if (result.isConfirmed) {
-            fetch(`${API_BASE_URL}/Match/DeleteMatch?id=${id}`, {
+            fetch(`${CONFIG.API_BASE_URL}/Match/DeleteMatch?id=${id}`, {
                 method: 'DELETE',
-                headers: getAuthHeaders()
+                headers: CONFIG.getAuthHeaders()
             }).then(response => {
                 if (response.ok) {
                     Swal.fire({
@@ -276,7 +292,7 @@ function deleteMatch(id) {
 
 async function loadClubs() {
     const response = await fetch(`${API_BASE_URL}/Club/GetAll`, {
-        headers: getAuthHeaders()
+        headers: CONFIG.getAuthHeaders()
     });
     return await response.json();
 }

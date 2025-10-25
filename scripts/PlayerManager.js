@@ -1,14 +1,6 @@
-function getAuthHeaders() {
- const token = localStorage.getItem('token');
- return {
-     'Content-Type': 'application/json',
-     'Authorization': `Bearer ${token}`
- }
-}
-
 async function loadPlayers() {
-    const response = await fetch(`${API_BASE_URL}/Players/GetAllPlayers`, {
-        headers: getAuthHeaders()
+    const response = await fetch(`${CONFIG.API_BASE_URL}/Players/GetAllPlayers`, {
+        headers: CONFIG.getAuthHeaders()
     });
     const responseContent = await response.json();
 
@@ -116,8 +108,8 @@ async function showCreateForm(){
 
 async function editPlayer(id){
     debugger
-    const response = await fetch(`${API_BASE_URL}/Players/GetPlayerById?id=${id}`, {
-        headers: getAuthHeaders()
+    const response = await fetch(`${CONFIG.API_BASE_URL}/Players/GetPlayerById?id=${id}`, {
+        headers: CONFIG.getAuthHeaders()
     });
     const player = await response.json();
     const clubs = await loadClubs();
@@ -192,6 +184,18 @@ async function editPlayer(id){
 }
 
 function createPlayer(){
+
+    const form = document.getElementById('playerForm');
+
+    if(!form.checkValidity()){
+        Swal.fire({
+            icon: "warning",
+            title: "Oops...",
+            text: "Por favor, completa todos los campos correctamente"
+        });
+        return;
+    }
+
     const playerData = {
         firstName: document.getElementById('firstName').value,
         lastName: document.getElementById('lastName').value,
@@ -206,9 +210,9 @@ function createPlayer(){
         clubId: parseInt(document.getElementById('clubId').value)
     };
 
-    fetch(`${API_BASE_URL}/Players/CreatePlayer`, {
+    fetch(`${CONFIG.API_BASE_URL}/Players/CreatePlayer`, {
         method: 'POST',
-        headers: getAuthHeaders(),
+        headers: CONFIG.getAuthHeaders(),
         body: JSON.stringify(playerData)
     }).then(response => {
         if(response.ok){
@@ -228,6 +232,18 @@ function createPlayer(){
 }
 
 function updatePlayer(id){
+
+    const form = document.getElementById('playerForm');
+
+    if(!form.checkValidity()){
+        Swal.fire({
+            icon: "warning",
+            title: "Oops...",
+            text: "Por favor, completa todos los campos correctamente"
+        });
+        return;
+    }
+
     const playerData = {
         id:id,
         firstName: document.getElementById('firstName').value,
@@ -245,7 +261,7 @@ function updatePlayer(id){
 
     fetch(`${API_BASE_URL}/Players/UpdatePlayer`, {
         method: 'Put',
-        headers: getAuthHeaders(),
+        headers: CONFIG.getAuthHeaders(),
         body: JSON.stringify(playerData)
     }).then(response => {
         if(response.ok){
@@ -276,9 +292,9 @@ function deletePlayer(id){
         cancelButtonText: "Cancelar"
         }).then((result) => {
             if (result.isConfirmed) { 
-            fetch(`${API_BASE_URL}/Players/DeletePlayer?id=${id}`, {
+            fetch(`${CONFIG.API_BASE_URL}/Players/DeletePlayer?id=${id}`, {
                 method: 'DELETE',
-                headers: getAuthHeaders()
+                headers: CONFIG.getAuthHeaders()
             }).then(response => {
                 if(response.ok){
                     Swal.fire({
@@ -301,8 +317,8 @@ function deletePlayer(id){
 }
 
 async function loadClubs() {
-    const response = await fetch(`${API_BASE_URL}/Club/GetAll`, {
-        headers: getAuthHeaders()
+    const response = await fetch(`${CONFIG.API_BASE_URL}/Club/GetAll`, {
+        headers: CONFIG.getAuthHeaders()
     });
     return await response.json();
 }

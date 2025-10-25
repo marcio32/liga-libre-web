@@ -1,15 +1,7 @@
-function getAuthHeaders() {
- const token = localStorage.getItem('token');
- return {
-     'Content-Type': 'application/json',
-     'Authorization': `Bearer ${token}`
- }
-}
-
 async function loadClubs() {
     // /{ruta del recurso}
-    const response = await fetch(`${API_BASE_URL}/Club/GetAll`, {
-        headers: getAuthHeaders()
+    const response = await fetch(`${CONFIG.API_BASE_URL}/Club/GetAll`, {
+        headers: CONFIG.getAuthHeaders()
     });
     const responseContent = await response.json();
 
@@ -28,7 +20,7 @@ function renderClubs(clubs) {
         club.phone,
         club.address,
         club.stadiumName,
-        isAdmin ? `<button class="btn btn-warning btn-sm" onclick="editClub(${club.id})">Editar</button>
+        isAdmin ? `<button class="btn btn-primary btn-sm" onclick="editClub(${club.id})">Editar</button>
                   <button class="btn btn-danger btn-sm" onclick="deleteClub(${club.id})">Eliminar</button>` : 'No autorizado'
 
         ]);
@@ -53,7 +45,7 @@ function showCreateForm(){
     <h2>Crear Club</h2>
     <form id="clubForm">
     <div style="width:15%">
-     <input class="form-control" type="text" id="name" name="name" placeholder="Nombre" required><br>
+        <input class="form-control" type="text" id="name" name="name" placeholder="Nombre" required><br>
         <input class="form-control" type="text" id="city" name="city" placeholder="Ciudad" required><br>
         <input class="form-control" type="email" id="email" name="email" placeholder="Email" required><br>
         <input class="form-control" type="number" id="numberOfPartners" name="numberOfPartners" placeholder="Número de socios" required><br>
@@ -68,8 +60,8 @@ function showCreateForm(){
 }
 
 function editClub(id){
-    fetch(`${API_BASE_URL}/Club/GetById?id=${id}`, {
-        headers: getAuthHeaders()
+    fetch(`${CONFIG.API_BASE_URL}/Club/GetById?id=${id}`, {
+        headers: CONFIG.getAuthHeaders()
     }).then(response => response.json()).then(
         club => {
             debugger
@@ -97,6 +89,17 @@ function editClub(id){
 }
 
 function createClub(){
+    const form = document.getElementById('clubForm');
+
+    if(!form.checkValidity()){
+        Swal.fire({
+            icon: "warning",
+            title: "Oops...",
+            text: "Por favor, completa todos los campos correctamente"
+        });
+        return;
+    }
+
     const clubData = {
         name: document.getElementById('name').value,
         city: document.getElementById('city').value,
@@ -107,9 +110,9 @@ function createClub(){
         stadiumName: document.getElementById('stadiumName').value
     };
 
-    fetch(`${API_BASE_URL}/Club/CreateClub`, {
+    fetch(`${CONFIG.API_BASE_URL}/Club/CreateClub`, {
         method: 'POST',
-        headers: getAuthHeaders(),
+        headers: CONFIG.getAuthHeaders(),
         body: JSON.stringify(clubData)
     }).then(response => {
         if(response.ok){
@@ -129,6 +132,19 @@ function createClub(){
 }
 
 function updateClub(id){
+    
+    const form = document.getElementById('clubForm');
+
+    if(!form.checkValidity()){
+        Swal.fire({
+            icon: "warning",
+            title: "Oops...",
+            text: "Por favor, completa todos los campos correctamente"
+        });
+        return;
+    }
+
+
       const clubData = {
         id: id,
         name: document.getElementById('name').value,
@@ -140,9 +156,9 @@ function updateClub(id){
         stadiumName: document.getElementById('stadiumName').value
     };
 
-    fetch(`${API_BASE_URL}/Club/UpdateClub`, {
+    fetch(`${CONFIG.API_BASE_URL}/Club/UpdateClub`, {
         method: 'Put',
-        headers: getAuthHeaders(),
+        headers: CONFIG.getAuthHeaders(),
         body: JSON.stringify(clubData)
     }).then(response => {
         if(response.ok){
@@ -173,9 +189,9 @@ function deleteClub(id){
         cancelButtonText: "Cancelar"
         }).then((result) => {
             if (result.isConfirmed) { 
-            fetch(`${API_BASE_URL}/Club/Delete?id=${id}`, {
+            fetch(`${CONFIG.API_BASE_URL}/Club/Delete?id=${id}`, {
                 method: 'DELETE',
-                headers: getAuthHeaders()
+                headers: CONFIG.getAuthHeaders()
             }).then(response => {
                 if(response.ok){
                     Swal.fire({

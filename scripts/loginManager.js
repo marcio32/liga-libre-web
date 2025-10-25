@@ -1,5 +1,3 @@
-const API_BASE_URL = "https://localhost:7007/api";
-
 async function login() {
     const email = document.getElementById('username').value;
     const password = document.getElementById('password').value;
@@ -21,7 +19,7 @@ async function login() {
 
     if(response.ok){
         const data = await response.json();
-            localStorage.setItem('token', data.token);
+            localStorage.setItem('authToken', data.token);
             localStorage.setItem('userEmail', data.email);
             localStorage.setItem('userRoles', JSON.stringify(data.roles));
             window.location.href = 'index.html';

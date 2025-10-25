@@ -1,14 +1,6 @@
-function getAuthHeaders() {
-    const token = localStorage.getItem('token');
-    return {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-    }
-}
-
 async function loadReferees() {
-    const response = await fetch(`${API_BASE_URL}/Referee/GetAllReferees`, {
-        headers: getAuthHeaders()
+    const response = await fetch(`${CONFIG.API_BASE_URL}/Referee/GetAllReferees`, {
+        headers: CONFIG.getAuthHeaders()
     });
     const responseContent = await response.json();
     renderReferees(responseContent);
@@ -88,8 +80,8 @@ async function showCreateForm() {
 }
 
 async function editReferee(id) {
-    const response = await fetch(`${API_BASE_URL}/Referee/GetRefereesById?id=${id}`, {
-        headers: getAuthHeaders()
+    const response = await fetch(`${CONFIG.API_BASE_URL}/Referee/GetRefereesById?id=${id}`, {
+        headers: CONFIG.getAuthHeaders()
     });
     const referee = await response.json();
     
@@ -140,6 +132,18 @@ async function editReferee(id) {
 }
 
 function createReferee() {
+
+    const form = document.getElementById('refereeForm');
+
+    if(!form.checkValidity()){
+        Swal.fire({
+            icon: "warning",
+            title: "Oops...",
+            text: "Por favor, completa todos los campos correctamente"
+        });
+        return;
+    }
+
     const refereeData = {
         firstName: document.getElementById('firstName').value,
         lastName: document.getElementById('lastName').value,
@@ -148,9 +152,9 @@ function createReferee() {
         isActive: document.getElementById('isActive').value === 'true'
     };
 
-    fetch(`${API_BASE_URL}/Referee/CreateReferee`, {
+    fetch(`${CONFIG.API_BASE_URL}/Referee/CreateReferee`, {
         method: 'POST',
-        headers: getAuthHeaders(),
+        headers: CONFIG.getAuthHeaders(),
         body: JSON.stringify(refereeData)
     }).then(response => {
         if (response.ok) {
@@ -171,6 +175,18 @@ function createReferee() {
 }
 
 function updateReferee(id) {
+
+    const form = document.getElementById('refereeForm');
+
+    if(!form.checkValidity()){
+        Swal.fire({
+            icon: "warning",
+            title: "Oops...",
+            text: "Por favor, completa todos los campos correctamente"
+        });
+        return;
+    }
+
     const refereeData = {
         id: id,
         firstName: document.getElementById('firstName').value,
@@ -180,9 +196,9 @@ function updateReferee(id) {
         isActive: document.getElementById('isActive').value === 'true'
     };
 
-    fetch(`${API_BASE_URL}/Referee/UpdateReferee`, {
+    fetch(`${CONFIG.API_BASE_URL}/Referee/UpdateReferee`, {
         method: 'PUT',
-        headers: getAuthHeaders(),
+        headers: CONFIG.getAuthHeaders(),
         body: JSON.stringify(refereeData)
     }).then(response => {
         if (response.ok) {
@@ -214,9 +230,9 @@ function deleteReferee(id) {
         cancelButtonText: "Cancelar"
     }).then((result) => {
         if (result.isConfirmed) {
-            fetch(`${API_BASE_URL}/Referee/DeleteReferee?id=${id}`, {
+            fetch(`${CONFIG.API_BASE_URL}/Referee/DeleteReferee?id=${id}`, {
                 method: 'DELETE',
-                headers: getAuthHeaders()
+                headers: CONFIG.getAuthHeaders()
             }).then(response => {
                 if (response.ok) {
                     Swal.fire({
